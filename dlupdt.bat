@@ -1,21 +1,21 @@
 @echo off
 color 0A
 title Kaspersky Rescue Disk 18 Updater
-echo ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
-echo Ý                                                                Þ
-echo Ý Kaspersky Rescue Disk 18 Updater by Rosenstein                 Þ
-echo Ý    (based on the Bharat Balegere's updater from AgniPulse.Com) Þ
-echo Ý                                                                Þ
-echo Ý                                                                Þ
-echo Ý https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater  Þ
-echo Ý                                                                Þ
-echo ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+echo ÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœÃœ
+echo Ã                                                                Ãž
+echo Ã Kaspersky Rescue Disk 18 Updater by Rosenstein                 Ãž
+echo Ã    (based on the Bharat Balegere's updater from AgniPulse.Com) Ãž
+echo Ã                                                                Ãž
+echo Ã                                                                Ãž
+echo Ã https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater  Ãž
+echo Ã                                                                Ãž
+echo ÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸÃŸ
 echo:
 echo:
 echo:
 :START
-if not exist .\tools\mkisofs.exe goto mkiso
-if not exist .\tools\7z.exe goto x
+if not exist .\Tools\mkisofs.exe goto mkiso
+if not exist .\Tools\7z.exe goto x
 if not exist .\krd.iso goto y
 if exist .\kavrescue rmdir /S /Q .\kavrescue
 if exist .\042-freshbases.srm del .\042-freshbases.srm
@@ -27,7 +27,7 @@ if exist .\krd_new.iso del .\krd_new.iso
 
 Echo Extracting the contents of Kaspersky Rescue Disk
 Title Extracting Kaspersky Rescue Disk
-.\tools\7z x -o"kavrescue" -bsp2 -y -x"![BOOT]\*.img" "krd.iso" > nul
+.\Tools\7z x -o"kavrescue" -bsp2 -y -x"![BOOT]\*.img" "krd.iso" > nul
 if errorlevel 255 goto:user_stopped_the_process
 if errorlevel 8 goto:not_enough_memory
 if errorlevel 7 goto:command_line_error
@@ -40,9 +40,9 @@ echo:
 Title Downloading fresh bases
 Echo Downloading fresh bases for Kaspersky Rescue Disk
 Echo:
-.\tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/042-freshbases.srm"
-.\tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/hashes.txt"
-.\tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml"
+.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/042-freshbases.srm"
+.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/hashes.txt"
+.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml"
 Echo:
 Echo Renaming files!
 ren "042-freshbases.srm" "005-bases.srm" > nul 2>&1
@@ -71,7 +71,7 @@ SET CDBOOT=
 if exist .\kavrescue\boot\grub\i386-pc\eltorito.img set CDBOOT=boot/grub/i386-pc/eltorito.img 
 if exist .\kavrescue\boot\grub\grub_eltorito set CDBOOT=boot/grub/grub_eltorito 
 if "%CDBOOT%"=="" goto bs
-.\tools\mkisofs -R -J -joliet-long -o krd_new.iso -b %CDBOOT% -c boot\boot.cat -no-emul-boot -boot-info-table -V "Kaspersky Rescue Disk" -boot-load-size 4 kavrescue > nul  2>&1
+.\Tools\mkisofs -R -J -joliet-long -o krd_new.iso -b %CDBOOT% -c boot\boot.cat -no-emul-boot -boot-info-table -V "Kaspersky Rescue Disk" -boot-load-size 4 kavrescue > nul  2>&1
 if errorlevel 1 goto :ERR
 echo NO ERRORS - new krd_new.iso IS MADE!
 rmdir /S /Q .\kavrescue
@@ -104,7 +104,7 @@ echo !! Bootsector is missing !! .\kavrescue\boot\grub\i386-pc\eltorito.img - pl
 goto :end
 
 :downkrd
-.\tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso"
+.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso"
 goto :start
 
 :mkiso
