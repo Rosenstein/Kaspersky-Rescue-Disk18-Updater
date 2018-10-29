@@ -5,7 +5,7 @@ Kaspersky Rescue Disk 18 Updater is a tool which can be used to update the virus
 
 Kaspersky Rescue Disk 18 can scan and remove viruses without booting into windows. The main disadvantage of Kaspersky Rescue Disk 10 is that it is not updated regularly. Even when it is updated there is no option to update your existing iso with the changes.You will have to download the entire iso.
 
-So if you don't download the rescue disk regularly, the virus definitions become out of date. Even though the rescue disk has an option to update the virus definitions from the internet, it is not very useful as the updates are not saved. You have to download all the updates each and every time you use the rescue disk.
+So if you don't download the rescue disk regularly, the virus definitions become out of date. Even though the rescue disk has an option to update the virus definitions from the internet, it is not very useful as the updates are saved on the computer that you're trying to clean. You have to download all the updates each and every time you use the rescue disk on every computer.
 
 This tool fixes the above problems by updating your existing Kaspersky Rescue Disk ISO with the latest virus definitions from the Kaspersky Servers. This helps in keeping your recue disk up date without having to download a lot of files. Hence saving a lot of time and bandwidth.
 
