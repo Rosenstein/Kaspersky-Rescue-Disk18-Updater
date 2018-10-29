@@ -20,5 +20,6 @@ This tool fixes the above problems by updating your existing Kaspersky Rescue Di
 5 . After the update is done you will see two files -> original krd.iso and krd_new.iso
 
 6 . You can now burn krd_new.iso to a CD and use it.
+    Or use this [guide](https://support.kaspersky.com/14226#block1) to write the ISO to a flash drive.
 
  
