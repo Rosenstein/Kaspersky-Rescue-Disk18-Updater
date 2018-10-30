@@ -10,7 +10,7 @@ So if you don't download the rescue disk regularly, the virus definitions become
 This tool fixes the above problems by updating your existing Kaspersky Rescue Disk ISO with the latest virus definitions from the Kaspersky Servers. This helps in keeping your recue disk up date without having to download a lot of files. Hence saving a lot of time and bandwidth.
 
 
-1 . Download the above the Updater as a zip from (https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater/archive/master.zip) and extract it to directory of your choice.
+1 . Download the above the Updater as a zip from [GitHub](https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater/archive/master.zip) and extract it to directory of your choice.
 
 2 . Run dlupdate.bat.
     Tool assumes that you already have krd.iso in the same directory, but it will be downloaded if not.
