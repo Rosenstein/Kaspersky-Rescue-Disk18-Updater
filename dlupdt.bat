@@ -25,7 +25,7 @@ if exist .\005-bases.srm.sha512 del .\005-bases.srm.sha512
 if exist .\krd.xml del .\krd.xml
 if exist .\krd_new.iso del .\krd_new.iso
 
-Echo Extracting the contents of Kaspersky Rescue Disk
+echo Extracting the contents of Kaspersky Rescue Disk
 Title Extracting Kaspersky Rescue Disk
 .\Tools\7z x -o"kavrescue" -bsp2 -y -x"![BOOT]\*.img" "krd.iso" > nul
 if errorlevel 255 goto:user_stopped_the_process
@@ -38,35 +38,36 @@ echo:
 echo:
 
 Title Downloading fresh bases
-Echo Downloading fresh bases for Kaspersky Rescue Disk
-Echo:
+echo Downloading fresh bases for Kaspersky Rescue Disk
+echo:
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/042-freshbases.srm"
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/hashes.txt"
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml"
-Echo:
-Echo Renaming files!
+echo:
+echo Renaming files!
 ren "042-freshbases.srm" "005-bases.srm" > nul 2>&1
 ren "hashes.txt" "005-bases.srm.sha512" > nul 2>&1
 echo:
 echo:
 
 title Copying the Updated Virus Definition Files to your Rescue Disk
-Echo Copying the Updated Virus Definition Base to your Rescue Disk
+echo Copying the Updated Virus Definition Base to your Rescue Disk
 copy /y .\005-bases.srm .\kavrescue\data\005-bases.srm > nul
 copy /y .\005-bases.srm.sha512 .\kavrescue\data\005-bases.srm.sha512 > nul
-Echo:
-Echo Updating krd_bases_timestamp.txt
-FOR /F delims^=^"^ tokens^=2 %%G IN ('FINDSTR /L "databases_timestamp" "krd.xml"')  DO ECHO %%G > .\kavrescue\krd_bases_timestamp.txt
-Echo:
+echo:
+FOR /F delims^=^"^ tokens^=2 %%G IN ('FINDSTR /L "databases_timestamp" "krd.xml"')  DO ECHO %%G > .\kavrescue\krd_bases_timestamp.txt & echo: & echo Base timestamp is: %%G
+echo Updating "krd_bases_timestamp.txt"
+echo:
+echo:
 echo Successfully Copied Updated Definition Files to your Rescue Disk
 echo:
 echo:
-Echo Next Step: Rebuilding the Rescue Disk ISO Image
-Echo:
-Echo:
+echo Next Step: Rebuilding the Rescue Disk ISO Image
+echo:
+echo:
 title Creating the Rescue Disk ISO Image
-Echo Creating the Rescue Disk ISO Image
-Echo:
+echo Creating the Rescue Disk ISO Image
+echo:
 SET CDBOOT=
 if exist .\kavrescue\boot\grub\i386-pc\eltorito.img set CDBOOT=boot/grub/i386-pc/eltorito.img 
 if exist .\kavrescue\boot\grub\grub_eltorito set CDBOOT=boot/grub/grub_eltorito 
@@ -113,19 +114,19 @@ echo Please re-extract "Tools" folder from downloaded zip file
 goto :end
 
 :user_stopped_the_process
-Echo User stopped the process
+echo User stopped the process
 goto :end
 :not_enough_memory
-Echo Not enough memory for operation
+echo Not enough memory for operation
 goto :end
 :command_line_error
-Echo Command line option error
+echo Command line option error
 goto :end
 :fatal_error
-Echo A fatal error occurred
+echo A fatal error occurred
 goto :end
 :ok_warnings
-Echo Non fatal error(s) occurred
+echo Non fatal error(s) occurred
 goto :end
 
 :end
