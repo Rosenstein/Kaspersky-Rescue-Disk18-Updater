@@ -34,6 +34,12 @@ if errorlevel 7 goto:command_line_error
 if errorlevel 2 goto:fatal_error
 if errorlevel 1 goto:ok_warnings
 echo Kaspersky Files Extracted to %~dp0kavrescue
+:: Check krd version
+.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml" > nul 2>&1
+for /F delims^=^"^ tokens^=2 %%G IN ('findstr /R /C:"\<version\>" "krd.xml"')  do set xmlver=%%G
+for /f "tokens=4 delims=() " %%F IN ('findstr /L "Kaspersky" ".\kavrescue\krd_version.txt"') do set isover=%%F
+goto :check
+:CONTINUE
 echo:
 echo:
 
@@ -42,7 +48,7 @@ echo Downloading fresh bases for Kaspersky Rescue Disk
 echo:
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/042-freshbases.srm"
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/hashes.txt"
-.\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml"
+
 echo:
 echo Renaming files!
 ren "042-freshbases.srm" "005-bases.srm" > nul 2>&1
@@ -85,12 +91,10 @@ goto :end
 echo ERROR! Some problem occurred!
 pause
 goto :end
-
 :x
 echo Missing file  %~dp0Tools\7z.exe.
 echo Please re-extract "Tools" folder from downloaded zip file
 goto :end
-
 :y
 echo !! Kaspersky Rescue Disk Is Not Present !!.
 echo:
@@ -99,20 +103,16 @@ echo:
 echo Rescue Disk Will Be Downloaded from:
 echo https://rescuedisk.s.kaspersky-labs^.com/updatable/2018/krd.iso
 goto downkrd
-
 :bs
 echo !! Bootsector is missing !! .\kavrescue\boot\grub\i386-pc\eltorito.img - please use correct version of ISO!
 goto :end
-
 :downkrd
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso"
 goto :start
-
 :mkiso
 echo File Missing %~dp0Tools\mkisofs.exe
 echo Please re-extract "Tools" folder from downloaded zip file
 goto :end
-
 :user_stopped_the_process
 echo User stopped the process
 goto :end
@@ -128,7 +128,20 @@ goto :end
 :ok_warnings
 echo Non fatal error(s) occurred
 goto :end
-
+:check
+IF %xmlver% GTR %isover% (
+echo:
+echo It seems that there is a new version of Kaspersky Rescue Disk available!
+goto :input
+) ELSE ( 
+goto :continue
+)
+:input
+echo Would you like to download it? (Y / N)
+set /p choc=
+)
+if "%choc%"=="y" goto :downkrd
+if "%choc%"=="n" goto :continue
 :end
 pause
 goto :EOF
