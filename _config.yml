@@ -1,3 +1,4 @@
 theme: jekyll-theme-hacker
 title: Kaspersky Rescue Disk 18 Updater
 site.title: Kaspersky Rescue Disk 18 Updater
+show_downloads: True
