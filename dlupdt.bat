@@ -25,7 +25,7 @@ if exist .\005-bases.srm.sha512 del .\005-bases.srm.sha512
 if exist .\krd.xml del .\krd.xml
 if exist .\krd_new.iso del .\krd_new.iso
 
-echo Extracting the contents of Kaspersky Rescue Disk
+echo Extracting contents of Kaspersky Rescue Disk
 Title Extracting Kaspersky Rescue Disk
 .\Tools\7z x -o"kavrescue" -bsp2 -y -x"![BOOT]\*.img" "krd.iso" > nul
 if errorlevel 255 goto:user_stopped_the_process
@@ -36,8 +36,10 @@ if errorlevel 1 goto:ok_warnings
 echo Kaspersky Files Extracted to %~dp0kavrescue
 :: Check krd version
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/bases/krd.xml" > nul 2>&1
-for /F delims^=^"^ tokens^=2 %%G IN ('findstr /R /C:"\<version\>" "krd.xml"')  do set xmlver=%%G
+FOR /F delims^=^"^ tokens^=2 %%G IN ('findstr /R /C:"\<version\>" "krd.xml"')  DO set xmlver=%%G
+FOR /F delims^=^"^ tokens^=2 %%G IN ('findstr /R /C:"\<system_patch\>" "krd.xml"')  DO set xmlpatch=%%G
 for /f "tokens=4 delims=() " %%F IN ('findstr /L "Kaspersky" ".\kavrescue\krd_version.txt"') do set isover=%%F
+for /f "tokens=5 delims=() " %%F IN ('findstr /L "Kaspersky" ".\kavrescue\krd_version.txt"') do set isopatch=%%F
 goto :check
 :CONTINUE
 echo:
@@ -56,8 +58,8 @@ ren "hashes.txt" "005-bases.srm.sha512" > nul 2>&1
 echo:
 echo:
 
-title Copying the Updated Virus Definition Files to your Rescue Disk
-echo Copying the Updated Virus Definition Base to your Rescue Disk
+title Copying Updated Virus Definition Files to your Rescue Disk
+echo Copying Updated Virus Definition Base to your Rescue Disk
 copy /y .\005-bases.srm .\kavrescue\data\005-bases.srm > nul
 copy /y .\005-bases.srm.sha512 .\kavrescue\data\005-bases.srm.sha512 > nul
 echo:
@@ -80,7 +82,7 @@ if exist .\kavrescue\boot\grub\grub_eltorito set CDBOOT=boot/grub/grub_eltorito
 if "%CDBOOT%"=="" goto bs
 .\Tools\mkisofs -R -J -joliet-long -o krd_new.iso -b %CDBOOT% -c boot\boot.cat -no-emul-boot -boot-info-table -V "Kaspersky Rescue Disk" -boot-load-size 4 kavrescue > nul  2>&1
 if errorlevel 1 goto :ERR
-echo NO ERRORS - new krd_new.iso IS MADE!
+echo NO ERRORS - New "krd_new.iso" IS CREATED!
 rmdir /S /Q .\kavrescue
 del .\005-bases.srm
 del .\005-bases.srm.sha512
@@ -108,7 +110,13 @@ echo !! Bootsector is missing !! .\kavrescue\boot\grub\i386-pc\eltorito.img - pl
 goto :end
 :downkrd
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso"
-goto :start
+echo:
+Echo Latest krd.iso has been downloaded. No need for an update.
+rmdir /S /Q .\kavrescue
+if exist .\krd_new.iso del .\krd_new.iso
+del .\krd.xml
+echo:
+goto :end
 :mkiso
 echo File Missing %~dp0Tools\mkisofs.exe
 echo Please re-extract "Tools" folder from downloaded zip file
@@ -129,15 +137,17 @@ goto :end
 echo Non fatal error(s) occurred
 goto :end
 :check
-IF %xmlver% GTR %isover% (
+IF %xmlver%%xmlpatch% GTR %isover%%isopatch% (
 echo:
 echo It seems that there is a new version of Kaspersky Rescue Disk available!
+echo Version on the disk: %isover%%isopatch% Þ Version on the server: "%xmlver%%xmlpatch%"
 goto :input
 ) ELSE ( 
 goto :continue
 )
 :input
-echo Would you like to download it? (Y / N)
+echo:
+echo Would you like to download the new version? (Y / N)
 set /p choc=
 )
 if "%choc%"=="y" goto :downkrd
