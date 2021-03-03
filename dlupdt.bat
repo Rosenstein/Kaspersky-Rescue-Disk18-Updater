@@ -1,15 +1,15 @@
 @echo off
 color 0A
 title Kaspersky Rescue Disk 18 Updater
-echo ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
-echo Ý                                                                Þ
-echo Ý Kaspersky Rescue Disk 18 Updater by Rosenstein                 Þ
-echo Ý    (based on the Bharat Balegere's updater from AgniPulse.Com) Þ
-echo Ý                                                                Þ
-echo Ý                                                                Þ
-echo Ý https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater  Þ
-echo Ý                                                                Þ
-echo ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+echo ##################################################################
+echo:
+echo  Kaspersky Rescue Disk 18 Updater by Rosenstein                 
+echo     (based on the Bharat Balegere's updater from AgniPulse.Com) 
+echo:
+echo:
+echo  https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater  
+echo:
+echo ##################################################################
 echo:
 echo:
 echo:
