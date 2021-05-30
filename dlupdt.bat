@@ -1,7 +1,7 @@
 @echo off
 color 0A
 title Kaspersky Rescue Disk 18 Updater
-echo ##################################################################
+echo:
 echo:
 echo  Kaspersky Rescue Disk 18 Updater by Rosenstein                 
 echo     (based on the Bharat Balegere's updater from AgniPulse.Com) 
@@ -9,7 +9,7 @@ echo:
 echo:
 echo  https://github.com/Rosenstein/Kaspersky-Rescue-Disk18-Updater  
 echo:
-echo ##################################################################
+echo:
 echo:
 echo:
 echo:
@@ -81,8 +81,10 @@ SET CDBOOT=
 if exist .\kavrescue\boot\grub\i386-pc\eltorito.img set CDBOOT=boot/grub/i386-pc/eltorito.img 
 if exist .\kavrescue\boot\grub\grub_eltorito set CDBOOT=boot/grub/grub_eltorito 
 if "%CDBOOT%"=="" goto bs
-.\Tools\mkisofs -R -J -joliet-long -o krd_new.iso -b %CDBOOT% -c boot\boot.cat -no-emul-boot -boot-info-table -V "Kaspersky Rescue Disk" -boot-load-size 4 kavrescue > nul  2>&1
+.\Tools\mkisofs -R -J -joliet-long -o krd_new.iso -b %CDBOOT% -c boot\boot.cat -no-emul-boot -boot-info-table -V "Kaspersky Rescue Disk" -boot-load-size 4 kavrescue
 if errorlevel 1 goto :ERR
+echo:
+echo:
 echo NO ERRORS - New "krd_new.iso" IS CREATED!
 rmdir /S /Q .\kavrescue
 del .\005-bases.srm
