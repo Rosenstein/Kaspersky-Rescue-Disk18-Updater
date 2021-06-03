@@ -117,12 +117,12 @@ echo:
 echo Downloading KRD.iso from Kaspersky Labs server
 .\Tools\curl -# -O "https://rescuedisk.s.kaspersky-labs.com/updatable/2018/krd.iso"
 echo:
-Echo Latest krd.iso has been downloaded. No need for an update.
+Echo krd.iso has been downloaded. Now update.
 if exist .\kavrescue rmdir /S /Q .\kavrescue
 if exist .\krd_new.iso del .\krd_new.iso
 if exist .\krd.xml del .\krd.xml
 echo:
-goto :end
+goto :start
 :mkiso
 echo File Missing %~dp0Tools\mkisofs.exe
 echo Please re-extract "Tools" folder from downloaded zip file
