@@ -55,7 +55,7 @@ echo:
 echo:
 echo Renaming files!
 ren "042-freshbases.srm" "005-bases.srm" > nul 2>&1
-ren "hashes.txt" "005-bases.srm.sha512" > nul 2>&1
+for /f "tokens=1" %%i in ('FINDSTR /L "042-freshbases.srm" "hashes.txt"') do echo %%i *005-bases.srm> 005-bases.srm.sha512
 echo:
 echo:
 
@@ -89,6 +89,7 @@ echo NO ERRORS - New "krd_new.iso" IS CREATED!
 rmdir /S /Q .\kavrescue
 del .\005-bases.srm
 del .\005-bases.srm.sha512
+del .\hashes.txt
 del .\krd.xml
 echo:
 goto :end
