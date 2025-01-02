@@ -1,6 +1,8 @@
 46aaf69a91703493b666f212a04f2d8d *mkisofs.txt
-72491c7b87a7c2dd350b727444f13bb4 *7z.dll
-619f7135621b50fd1900ff24aade1524 *7z.exe
-e7bcf4e38c4b350178ddd9956e499ddc *curl.exe
-eba44a3f7c21c902ebfce7dbc279e8fd *curl-ca-bundle.crt
-5d474886a09fdcbf0b080381db062cee *mkisofs.exe
+dc9f1781ffd8b046cdfa4b691ef458f0 *README.md
+d9178b626f8b87f51b47987418d012bf *curl-ca-bundle.crt
+3ca5f5f71884ff1f2dc0b1e0a5923a7a *curl.exe
+6db16199ae9ac301cdf319ee7bc40f66 *libcurl.dll
+7d87505250aaec05904237c2504fcd12 *7z.dll
+851dd33cd2d6a307a170750f8cedf023 *7z.exe
+863e78b3dd1acbdc73ca45225618801c *mkisofs.exe
